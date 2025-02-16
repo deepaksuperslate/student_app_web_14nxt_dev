@@ -1,9 +1,9 @@
 'use client';
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Tldraw, TldrawOptions, DefaultPageMenu, useEditor, getSnapshot, Editor, exportToBlob, TLEventInfo, createShapeId, TLGeoShape } from 'tldraw'
+import { Tldraw, getSnapshot, Editor, exportToBlob, TLEventInfo, } from 'tldraw'
 import 'tldraw/tldraw.css'
-import {MigratedShapeUtil, CounterShapeUtil} from './question'
+import { MigratedShapeUtil } from './question'
 
 export default function page() {
     const { topic, pageNumber } = useSelector((state: any) => state.note);

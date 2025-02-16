@@ -5,17 +5,10 @@ import {
 	T,
 	TLBaseShape,
 	TLResizeInfo,
-	TLStoreSnapshot,
-	Tldraw,
 	createShapePropsMigrationIds,
 	createShapePropsMigrationSequence,
 	resizeBox,
     useEditor,
-    TLGeoShape,
-    ShapeUtil,
-    RecordProps,
-    Geometry2d,
-    Rectangle2d,
     stopEventPropagation
 } from 'tldraw'
 

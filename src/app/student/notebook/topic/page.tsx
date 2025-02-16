@@ -1,8 +1,8 @@
 'use client';
 import { setNoteData } from '@/lib/store/noteSlice';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 
 export default function page() {
