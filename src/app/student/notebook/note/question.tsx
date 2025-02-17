@@ -5,11 +5,18 @@ import {
 	T,
 	TLBaseShape,
 	TLResizeInfo,
+	TLStoreSnapshot,
+	Tldraw,
 	createShapePropsMigrationIds,
 	createShapePropsMigrationSequence,
 	resizeBox,
-    useEditor,
-    stopEventPropagation
+	useEditor,
+	TLGeoShape,
+	ShapeUtil,
+	RecordProps,
+	Geometry2d,
+	Rectangle2d,
+	stopEventPropagation
 } from 'tldraw'
 
 export type IMyShape = TLBaseShape<
@@ -18,7 +25,7 @@ export type IMyShape = TLBaseShape<
 		w: number
 		h: number
 		color: string
-        text: string
+		text: string
 	}
 >
 
@@ -32,7 +39,7 @@ const versions = createShapePropsMigrationIds(
 )
 
 // [2]
-export const cardShapeMigrations = createShapePropsMigrationSequence({
+export const CardShapeMigrations = createShapePropsMigrationSequence({
 	sequence: [
 		{
 			id: versions.AddColor,
@@ -54,13 +61,13 @@ export class MigratedShapeUtil extends BaseBoxShapeUtil<IMyShape> {
 		w: T.number,
 		h: T.number,
 		color: T.string,
-        text: T.string
+		text: T.string
 	}
 
 	// [3]
-	static override migrations = cardShapeMigrations
+	static override migrations = CardShapeMigrations
 
-    override canEdit() {
+	override canEdit() {
 		return true
 	}
 
@@ -69,57 +76,57 @@ export class MigratedShapeUtil extends BaseBoxShapeUtil<IMyShape> {
 			w: 300,
 			h: 300,
 			color: 'lightblue',
-            text: 'Test Shape'
+			text: 'Test Shape'
 		}
 	}
 
-	component(shape: IMyShape) {
-        const editor = useEditor()
-        const [isEditing, setIsEditing] = useState(false);
-        const [text, setText] = useState(shape.props.text);
+	component(Shape: IMyShape) {
+		const editor = useEditor()
+		const [isEditing, setIsEditing] = useState(false);
+		const [text, setText] = useState(Shape.props.text);
 
-        const handleDoubleClick = () =>  {
-            console.log("clicked d ....")
-            setIsEditing(true)
-        };
-        const handleBlur = () => {
-            editor.updateShapes([{ id: shape.id, type: shape.type, props: { ...shape.props, text } }]);
-            setIsEditing(false);
-        };
+		const handleDoubleClick = () => {
+			console.log("clicked d ....")
+			setIsEditing(true)
+		};
+		const handleBlur = () => {
+			editor.updateShapes([{ id: Shape.id, type: Shape.type, props: { ...Shape.props, text } }]);
+			setIsEditing(false);
+		};
 		return (
 			<HTMLContainer
-				id={shape.id}
+				id={Shape.id}
 				style={{
-					backgroundColor: shape.props.color,
+					backgroundColor: Shape.props.color,
 					boxShadow: '0 0 10px rgba(0,0,0,0.5)',
-                    pointerEvents: 'all'
+					pointerEvents: 'all'
 				}}
-                
+
 			>
-                <div onClick={(e) => handleDoubleClick()} onPointerDown={stopEventPropagation}>
-                {isEditing ? (
-          <textarea
-            autoFocus
-            defaultValue={shape.props.text}
-            onBlur={handleBlur}
-            style={{
-              width: '100%',
-              height: '100%',
-              border: 'none',
-              outline: 'none',
-              resize: 'none',
-              background: 'transparent',
-              fontFamily: 'inherit',
-              fontSize: 'inherit',
-              lineHeight: 'inherit',
-            }}
-          />
-        ) : (
-          shape.props.text
-        )}
-                </div>
-                
-            </HTMLContainer>
+				<div onClick={(e) => handleDoubleClick()} onPointerDown={stopEventPropagation}>
+					{isEditing ? (
+						<textarea
+							autoFocus
+							defaultValue={Shape.props.text}
+							onBlur={handleBlur}
+							style={{
+								width: '100%',
+								height: '100%',
+								border: 'none',
+								outline: 'none',
+								resize: 'none',
+								background: 'transparent',
+								fontFamily: 'inherit',
+								fontSize: 'inherit',
+								lineHeight: 'inherit',
+							}}
+						/>
+					) : (
+						Shape.props.text
+					)}
+				</div>
+
+			</HTMLContainer>
 		)
 	}
 

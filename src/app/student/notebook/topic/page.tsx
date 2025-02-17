@@ -1,11 +1,11 @@
 'use client';
 import { setNoteData } from '@/lib/store/noteSlice';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
 
-export default function page() {
+export default function Topicpage() {
     const router = useRouter(); 
     // const { } = useSelector((state: any) => state.note);
     const dispatch = useDispatch()
